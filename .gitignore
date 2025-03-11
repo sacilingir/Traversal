@@ -1,0 +1,14 @@
+# Visual Studio için temel ayarlar
+.vs/
+*.user
+*.suo
+*.cache
+*.ilk
+*.pdb
+*.obj
+*.exe
+*.dll
+*.log
+*.csproj.user
+bin/
+obj/
