@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,6 +13,7 @@ namespace BusinessLayer.Abstract
         void TDelete(T t);
         void TUpdate(T t);
         List<T> TGetList();
-        T TGetByID(T t);
+        T TGetByID(int id);
+        
     }
 }

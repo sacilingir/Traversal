@@ -4,6 +4,7 @@ using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,9 @@ namespace BusinessLayer.Concrete
         {
             _aboutDal = aboutDal;
         }
+
+        
+
         public void TAdd(About t)
         {
             _aboutDal.Insert(t);
@@ -27,6 +31,11 @@ namespace BusinessLayer.Concrete
         }
 
         public About TGetByID(About t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public About TGetByID(int id)
         {
             throw new NotImplementedException();
         }
