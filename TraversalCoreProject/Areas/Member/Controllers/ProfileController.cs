@@ -26,5 +26,31 @@ namespace TraversalCoreProject.Areas.Member.Controllers
             userEditViewModel.mail = values.Email; ;
             return View(userEditViewModel);
         }
+        [HttpPost]
+        public async Task<ActionResult> Index(UserEditViewModel p)
+        {
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            if(p.Image != null)
+            {
+                var resource = Directory.GetCurrentDirectory(); //Uygulamanın şu an çalıştığı dizini alır
+                var extension = Path.GetExtension(p.Image.FileName); //Yüklenen dosyanın uzantısını alır
+                var imagename = Guid.NewGuid() + extension;
+                var savelocation = resource + "/wwwroot/userimages/" + imagename;
+                var stream = new FileStream(savelocation, FileMode.Create); //akış oluşturur. N savelocation:ereye kaydedeceğimiz , FileMode.Create : yeni bir akış oluştur
+                await p.Image.CopyToAsync(stream);
+                user.ImageUrl = imagename;
+            }
+
+            user.Name = p.name;
+            user.Surname = p.surname;
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, p.password);
+            user.PhoneNumber = p.phonenumber;
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("SignIn", "Login");
+            }
+            return View();
+        }
     }
 }
