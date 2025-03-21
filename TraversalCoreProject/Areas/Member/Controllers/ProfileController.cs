@@ -38,7 +38,7 @@ namespace TraversalCoreProject.Areas.Member.Controllers
                 var savelocation = resource + "/wwwroot/userimages/" + imagename;
                 var stream = new FileStream(savelocation, FileMode.Create); //akış oluşturur. N savelocation:ereye kaydedeceğimiz , FileMode.Create : yeni bir akış oluştur
                 await p.Image.CopyToAsync(stream);
-                user.ImageUrl = imagename;
+                user.ImageUrl = "/userimages/" + imagename;
             }
 
             user.Name = p.name;
