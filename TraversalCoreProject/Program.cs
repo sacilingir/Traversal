@@ -7,9 +7,21 @@ using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.CodeAnalysis.Elfie.Serialization;
+using Serilog;
+using Serilog.Extensions.Logging;
 using TraversalCoreProject.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddLogging(x =>
+{
+    x.ClearProviders();
+    x.SetMinimumLevel(LogLevel.Debug);
+    x.AddDebug();
+});
+
+
 
 // Add services to the container.
 builder.Services.AddDbContext<Context>();
@@ -21,6 +33,8 @@ builder.Services.AddScoped<IAppUserService, AppUserManager>();
 builder.Services.AddScoped<IAppUserDal, EfAppUserDal>();
 builder.Services.AddScoped<IReservationService, ReservationManager>();
 builder.Services.AddScoped<IReservationDal, EfReservationDal>();
+builder.Services.AddScoped<IGuideService, GuideManager>();
+builder.Services.AddScoped<IGuideDal, EfGuideDal>();
 
 builder.Services.AddControllersWithViews();
 
@@ -34,7 +48,16 @@ builder.Services.AddMvc(config =>
 
 builder.Services.AddMvc();
 
+builder.Logging.ClearProviders(); // This line goes here
+builder.Services.AddLogging(log =>
+{
+    log.ClearProviders();
+    log.AddFile($"{Directory.GetCurrentDirectory()}\\LogFile\\log.txt", LogLevel.Error);
+});
+
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

@@ -10,19 +10,23 @@ namespace TraversalCoreProject.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+            
             _logger = logger;
         }
 
         public IActionResult Index()
         {
+            _logger.LogInformation("Index Sayfasý Çaðýrýldý");
             return View();
         }
 
         public IActionResult Privacy()
         {
+            _logger.LogInformation("Privacy sayfasý çaðrýldý");
             return View();
         }
 
+       
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
