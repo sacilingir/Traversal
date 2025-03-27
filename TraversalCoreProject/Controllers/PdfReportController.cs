@@ -38,6 +38,7 @@ namespace TraversalCoreProject.Controllers
 
         public IActionResult StaticCustomerReport()
         {
+           
             string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/pdfreports/" + "dosya1.pdf");
             var stream = new FileStream(path, FileMode.Create);
 
