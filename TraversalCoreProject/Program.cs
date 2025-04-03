@@ -1,15 +1,20 @@
 using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using BusinessLayer.Container;
+using BusinessLayer.ValidationRules;
 using DataAccessLayer.Abstract;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using DTOLayer.DTOs.AnnouncementDTOs;
 using EntityLayer.Concrete;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Serilog;
 using Serilog.Extensions.Logging;
+using System.Reflection;
 using TraversalCoreProject.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +40,17 @@ builder.Services.AddScoped<IReservationService, ReservationManager>();
 builder.Services.AddScoped<IReservationDal, EfReservationDal>();
 builder.Services.AddScoped<IGuideService, GuideManager>();
 builder.Services.AddScoped<IGuideDal, EfGuideDal>();
+builder.Services.AddScoped<IContactUsService, ContactUsManager>();
+builder.Services.AddScoped<IContactUsDal, EfContactUsDal>();
+builder.Services.AddScoped<IAnnouncementService, AnnouncementManager>();
+builder.Services.AddScoped<IAnnouncementDal, EfAnnouncementDal>();
+
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddTransient<IValidator<AnnouncementAddDto>, AnnouncementValidator>();
+builder.Services.AddControllers();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddFluentValidationClientsideAdapters();
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 builder.Services.AddControllersWithViews();
 
