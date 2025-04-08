@@ -15,9 +15,12 @@ using Microsoft.CodeAnalysis.Elfie.Serialization;
 using Serilog;
 using Serilog.Extensions.Logging;
 using System.Reflection;
+using TraversalCoreProject.CQRS.Handlers.DestinationHandlers;
 using TraversalCoreProject.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<GetAllDestinationQueryHandler>();
 
 builder.Services.AddLogging(x =>
 {
