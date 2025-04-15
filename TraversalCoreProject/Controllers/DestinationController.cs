@@ -29,8 +29,9 @@ namespace TraversalCoreProject.Controllers
             ViewBag.i = id;
             ViewBag.destID = id;
             var value = await _userManager.FindByNameAsync(User.Identity.Name);
+
             ViewBag.userID = value.Id;
-            var values = dm.TGetByID(id);
+            var values = dm.TGetDestinationWithGuide(id);
             return View(values);
         }
 
