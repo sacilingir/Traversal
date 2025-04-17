@@ -25,6 +25,7 @@ namespace TraversalCoreProject.Controllers
 
         [HttpGet]
         public async Task<IActionResult> DestinationDetails(int id)
+        
         {
             ViewBag.i = id;
             ViewBag.destID = id;
