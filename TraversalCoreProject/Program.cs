@@ -75,7 +75,14 @@ builder.Services.AddMvc(config =>
     config.Filters.Add(new AuthorizeFilter(policy));
 });
 
+
+
 builder.Services.AddMvc();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Login/SignIn/";
+});
 
 builder.Logging.ClearProviders(); // This line goes here
 builder.Services.AddLogging(log =>
